@@ -1,11 +1,87 @@
 //@ts-nocheck
-import NEnt from './NEnt'
+/**
+ * Clase que representa un número entero y proporciona métodos para manipularlo.
+ */
+class NEnt {
+  valor: number
+  /**
+   * Constructor de la clase NEnt. Inicializa el valor del número entero.
+   * @constructor
+   */
+  constructor() {
+    this.valor = 0
+  }
+  /**
+   * Carga un número en la instancia.
+   * @param {number} numero - Número que se carga en la instancia.
+   */
+  cargar(numero: number): void {
+    this.valor = numero
+  }
+  /**
+   * Descarga el valor almacenado como una cadena.
+   * @returns {string} - Valor almacenado convertido a cadena.
+   */
+  descargar(): string {
+    return this.valor.toString()
+  }
+  /**
+   * Invierte el número almacenado.
+   */
+  invertir(): void {
+    let digito
+    let resultado = 0
+    let numero = this.valor
+    while (numero > 0) {
+      digito = numero % 10
+      resultado = resultado * 10 + digito
+      numero = Math.floor(numero / 10)
+    }
+    this.valor = resultado
+  }
+  /**
+   * Calcula y actualiza el número de dígitos en el valor almacenado.
+   */
+  numeroDigitos(): void {
+    this.valor = this.valor.toString().length
+  }
+  /**
+   * Verifica si el número almacenado es par.
+   * @returns {boolean} - true si el número es par, false de lo contrario.
+   */
+  verificarPar(): boolean {
+    return this.valor % 2 === 0
+  }
+  /**
+   * Verifica si el número almacenado es primo.
+   * @returns {boolean} - true si el número es primo, false de lo contrario.
+   */
+  verificarPrimos(): boolean {
+    let r
+    let c = 0
+    for (let i = 1; i <= this.valor; i++) {
+      r = this.valor % i
+      if (r === 0) {
+        c++
+      }
+    }
+    return c === 2
+  }
+  /**
+   * Verifica si el número almacenado es capicúa.
+   * @returns {boolean} - true si el número es capicúa, false de lo contrario.
+   */
+  verificarCapicua(): boolean {
+    const copia = this.valor
+    this.invertir()
+    return copia === this.valor
+  }
+}
 
 interface ObjetoMaxYFrec {
   maximo: number
   frecuencia: number
 }
-
 interface Array<T> {
   /**
    * Carga el array con números aleatorios en un rango específico.
@@ -13,361 +89,343 @@ interface Array<T> {
    * @param {number} valorInicial - Valor mínimo del rango.
    * @param {number} valorFinal - Valor máximo del rango.
    */
-  cargar: (
+  cargar(
     numeroDeElementos: number,
     valorInicial: number,
     valorFinal: number
-  ) => void
+  ): void
   /**
    * Carga un elemento en el array.
    * @param {number} numero - Elemento a cargar.
    */
-  cargarElementoXElemento: (numero: number) => void
+  cargarElementoXElemento(numero: number): void
   /**
    * Descarga el array en formato de cadena.
    * @returns {string} - Cadena que representa el array.
    */
-  descargar: () => void
+  descargar(): void
   /**
    * Carga el array con una serie aritmética.
    * @param {number} numeroDeElementos - Número de elementos a cargar.
    * @param {number} valorInicial - Primer término de la serie.
    * @param {number} razon - Razón de la serie.
    */
-  cargarSerieAritmetica: (
+  cargarSerieAritmetica(
     numeroDeElementos: number,
     valorInicial: number,
     razon: number
-  ) => void
+  ): void
   /**
    * Carga el array con una serie de Fibonacci.
    * @param {number} numeroDeElementos - Número de elementos a cargar.
    */
-  cargarSerieFibonacci: (numeroDeElementos: number) => void
+  cargarSerieFibonacci(numeroDeElementos: number): void
   /**
    * Selecciona elementos del array por posición en un intervalo específico.
    * @param {number} intervalo - Intervalo de selección.
    * @param {Array} v2 - Array donde se cargarán los elementos seleccionados.
    */
-  seleccionarPorPosicion: (intervalo: number, v2: number[]) => void
+  seleccionarPorPosicion(intervalo: number, v2: number[]): void
   /**
    * Selecciona los números primos del array y los carga en otro array.
    * @param {Array} v2 - Array donde se cargarán los números primos.
    */
-  seleccionarPrimos: (v2: number[]) => void
+  seleccionarPrimos(v2: number[]): void
   /**
    * Selecciona los números no primos del array y los carga en otro array.
    * @param {Array} v3 - Array donde se cargarán los números no primos.
    */
-  seleccionarNoPrimos: (v3: number[]) => void
+  seleccionarNoPrimos(v3: number[]): void
   /**
    * Selecciona los números mayores que la media más la desviación estándar y los carga en otro array.
    * @param {Array} v2 - Array donde se cargarán los números seleccionados.
    */
-  seleccionarBuenos: (v2: number[]) => void
+  seleccionarBuenos(v2: number[]): void
   /**
    * Encuentra y devuelve el valor máximo en el array.
    * @returns {number} - Valor máximo en el array.
    */
-  maximo: () => number
+  maximo(): number
   /**
    * Calcula y devuelve la frecuencia de un elemento en el array.
    * @param {number} elemento - Elemento cuya frecuencia se desea calcular.
    * @returns {number} - Frecuencia del elemento en el array.
    */
-  frecuencia: (elemento: number) => number
+  frecuencia(elemento: number): number
   /**
    * Calcula y asigna el valor máximo y su frecuencia a un objeto dado.
    * @param {ObjetoMaxYFrec} objetoMaxYFrec - Objeto que almacenará el máximo y su frecuencia.
    * @property {number} objetoMaxYFrec.maximo - Valor máximo en el array.
    * @property {number} objetoMaxYFrec.frecuencia - Frecuencia del valor máximo.
    */
-  maximoYfrecuencia: (objetoMaxYFrec: ObjetoMaxYFrec) => void
+  maximoYfrecuencia(objetoMaxYFrec: ObjetoMaxYFrec): void
   /**
    * Calcula y devuelve el promedio de los elementos en el array.
    * @returns {number} - Promedio de los elementos en el array.
    */
-  promedio: () => number
+  promedio(): number
   /**
    * Calcula y devuelve la desviación media de los elementos en el array.
    * @returns {number} - Desviación media de los elementos en el array.
    */
-  desviacionMedia: () => number
+  desviacionMedia(): number
   /**
    * Calcula y devuelve la desviación estándar de los elementos en el array.
    * @returns {number} - Desviación estándar de los elementos en el array.
    */
-  desviacionEstandar: () => number
+  desviacionEstandar(): number
   /**
    * Realiza una búsqueda binaria en el array para encontrar un valor específico.
    * @param {number} valorBuscado - Valor a buscar en el array.
    * @returns {boolean} - `true` si se encuentra el valor, `false` de lo contrario.
    */
-  busquedaBinaria: (valorBuscado: number) => boolean
+  busquedaBinaria(valorBuscado: number): boolean
   /**
    * Realiza una búsqueda secuencial en el array para encontrar un valor específico.
    * @param {number} valorBuscado - Valor a buscar en el array.
    * @returns {boolean} - `true` si se encuentra el valor, `false` de lo contrario.
    */
-  busquedaSecuencial: (valorBuscado: number) => boolean
+  busquedaSecuencial(valorBuscado: number): boolean
   /**
    * Retorna la dimensión del array (número de elementos).
    * @returns {number} - Número de elementos en el array.
    */
-  retornarDimension: () => number
+  retornarDimension(): number
   /**
    * Retorna el elemento en una posición específica del array.
    * @param {number} elemento - Posición del elemento a retornar.
    * @returns {number} - Elemento en la posición especificada.
    */
-  retornarElemento: (elemento: number) => number
+  retornarElemento(elemento: number): number
   /**
    * Retorna el array completo.
    * @returns {number[]} - Array completo.
    */
-  retornarArray: () => number[]
+  retornarArray(): number[]
   /**
    * Elimina los elementos duplicados del array.
    */
-  eliminarDuplicados: () => void
+  eliminarDuplicados(): void
   /**
    * Intercambia dos elementos en posiciones específicas del array.
    * @param {number} a - Posición del primer elemento.
    * @param {number} b - Posición del segundo elemento.
    */
-  intercambiar: (a: number, b: number) => void
+  intercambiar(a: number, b: number): void
   /**
    * Realiza el ordenamiento por intercambio de manera ascendente.
    */
-  ordenamientoPorIntercambioAscendente: () => void
+  ordenamientoPorIntercambioAscendente(): void
   /**
    * Realiza el ordenamiento por intercambio de manera descendente.
    */
-  ordenamientoPorIntercambioDescendente: () => void
+  ordenamientoPorIntercambioDescendente(): void
   /**
    * Realiza el ordenamiento por selección de manera ascendente.
    */
-  ordenamientoPorSeleccionAscendente: () => void
+  ordenamientoPorSeleccionAscendente(): void
   /**
    * Realiza el ordenamiento por selección de manera descendente.
    */
-  ordenamientoPorSeleccionDescendente: () => void
+  ordenamientoPorSeleccionDescendente(): void
   /**
    * Ordena los elementos del array mediante el algoritmo de burbuja de manera ascendente.
    */
-  ordenamientoBurbujaAscendente: () => void
+  ordenamientoBurbujaAscendente(): void
   /**
    * Ordena los elementos del array mediante el algoritmo de burbuja de manera descendente.
    */
-  ordenamientoBurbujaDescendente: () => void
+  ordenamientoBurbujaDescendente(): void
   /**
    * Verifica si un número pertenece al array.
    * @param {number} numero - Número a verificar.
    * @returns {boolean} - `true` si el número pertenece al array, `false` de lo contrario.
    */
-  pertenencia: (numero: number) => boolean
+  pertenencia(numero: number): boolean
   /**
    * Obtiene la intersección de dos conjuntos y carga el resultado en el array actual.
    * @param {number[]} v1 - Primer conjunto.
    * @param {number[]} v2 - Segundo conjunto.
    */
-  interseccionDeConjuntos: (v1: number[], v2: number[]) => void
+  interseccionDeConjuntos(v1: number[], v2: number[]): void
   /**
    * Obtiene la unión de dos conjuntos y carga el resultado en el array actual.
    * @param {number[]} v1 - Primer conjunto.
    * @param {number[]} v2 - Segundo conjunto.
    */
-  unionDeConjuntos: (v1: number[], v2: number[]) => void
+  unionDeConjuntos(v1: number[], v2: number[]): void
   /**
    * Obtiene la diferencia A - B de dos conjuntos y carga el resultado en el array actual.
    * @param {number[]} v1 - Conjunto A.
    * @param {number[]} v2 - Conjunto B.
    */
-  diferenciaDeConjuntosAB: (v1: number[], v2: number[]) => void
+  diferenciaDeConjuntosAB(v1: number[], v2: number[]): void
   /**
    * Obtiene la diferencia B - A de dos conjuntos y carga el resultado en el array actual.
    * @param {number[]} v1 - Conjunto A.
    * @param {number[]} v2 - Conjunto B.
    */
-  diferenciaDeConjuntosBA: (v1: number[], v2: number[]) => void
+  diferenciaDeConjuntosBA(v1: number[], v2: number[]): void
   /**
    * Segmenta el array separando los números pares de los impares.
    */
-  segmentarParYNoPar: () => void
+  segmentarParYNoPar(): void
   /**
    * Segmenta el array separando los números primos de los no primos.
    */
-  segmentarPrimoYNoPrimo: () => void
+  segmentarPrimoYNoPrimo(): void
   /**
    * Intercala los números pares e impares del array.
    */
-  intercalarParYNoPar: () => void
+  intercalarParYNoPar(): void
   /**
    * Intercala los números primos y no primos del array.
    */
-  intercalarPrimoYNoPrimo: () => void
+  intercalarPrimoYNoPrimo(): void
   /**
    * Invierte el orden de los elementos del array.
    */
-  invertir: () => void
+  invertir(): void
   /**
    * Cuenta los submúltiplos en el array.
    * @returns {number} - Número de submúltiplos.
    */
-  contarSubmultiplos: () => number
+  contarSubmultiplos(): number
   /**
    * Busca y devuelve el elemento mayor en el array en posiciones múltiplos del índice dado.
    * @param {number} indice - Índice para determinar las posiciones a considerar.
    * @returns {number} - Elemento mayor.
    */
-  buscarElementoMayor: (indice: number) => number
+  buscarElementoMayor(indice: number): number
   /**
    * Calcula y devuelve la media de los elementos del array en posiciones múltiplos del índice dado.
    * @param {number} indice - Índice para determinar las posiciones a considerar.
    * @returns {number} - Media de los elementos.
    */
-  buscarMedia: (indice: number) => number
+  buscarMedia(indice: number): number
   /**
    * Verifica si todos los elementos del array son iguales.
    * @returns {boolean} - Indica si todos los elementos son iguales.
    */
-  verificarElementosIguales: () => boolean
+  verificarElementosIguales(): boolean
   /**
    * Verifica si un segmento del array está ordenado de manera ascendente.
    * @param {number} a - Índice de inicio del segmento.
    * @param {number} b - Índice de fin del segmento.
    * @returns {boolean} - Indica si el segmento está ordenado.
    */
-  verificarSegmentoOrdenado: (a: number, b: number) => boolean
+  verificarSegmentoOrdenado(a: number, b: number): boolean
   /**
    * Inserta un array en otro en una posición específica.
    * @param {number[]} v1 - Array a insertar.
    * @param {number[]} v2 - Array que contiene los elementos a insertar.
    * @param {number} posicion - Posición en la que se insertará el array.
    */
-  insertarArrayPorPosicion: (
-    v1: number[],
-    v2: number[],
-    posicion: number
-  ) => void
+  insertarArrayPorPosicion(v1: number[], v2: number[], posicion: number): void
   /**
    * Elimina los elementos de un array indicando dos posiciones (rango).
    * @param {number} a - Índice de inicio del rango.
    * @param {number} b - Índice de fin del rango.
    */
-  eliminarElementosDelArrayIndicandoLasPosiciones: (
-    a: number,
-    b: number
-  ) => void
+  eliminarElementosDelArrayIndicandoLasPosiciones(a: number, b: number): void
   /**
    * Duplica los elementos del array.
    */
-  duplicarElementos: () => void
+  duplicarElementos(): void
   /**
    * Concatena dos arrayes al final del array actual.
    * @param {number[]} v1 - Array a concatenar.
    */
-  concatenar: (v1: number[]) => void
+  concatenar(v1: number[]): void
   /**
    * Ordena los elementos de un segmento del array usando el método de burbuja.
    * @param {number} a - Índice de inicio del segmento.
    * @param {number} b - Índice de fin del segmento.
    */
-  ordenarElementosDeUnSegmento: (a: number, b: number) => void
+  ordenarElementosDeUnSegmento(a: number, b: number): void
   /**
    * Busca el elemento menos repetido en el array.
    * @returns {number} - Elemento menos repetido.
    */
-  buscarElementoMenosRepetido: () => number
+  buscarElementoMenosRepetido(): number
   /**
    * Encuentra el elemento menos repetido entre un segmento del array.
    * @param {number} a - Índice de inicio del segmento.
    * @param {number} b - Índice de fin del segmento.
    * @returns {number} - Elemento menos repetido en el segmento.
    */
-  encontrarElementoMenosRepetidoEntreUnSegmento: (
-    a: number,
-    b: number
-  ) => number
+  encontrarElementoMenosRepetidoEntreUnSegmento(a: number, b: number): number
   /**
    * Carga en un array la frecuencia de cómo aparece cada número del array actual en otro array.
    * @param {number[]} v3 - Array donde se carga la frecuencia.
    * @param {number[]} v2 - Array con los elementos cuya frecuencia se va a calcular.
    */
-  cargarFrecuencia: (v3: number[], v2: number[]) => void
+  cargarFrecuencia(v3: number[], v2: number[]): void
   /**
    * Encuentra la frecuencia de distribución de un segmento
    * @param {number[]} v2 objeto de la clase array
    * @param {number[]} v3 objeto de la clase array
    */
-  encontrarLaFrecuenciaDeDistribucionEntreUnSegmento: (
+  encontrarLaFrecuenciaDeDistribucionEntreUnSegmento(
     a: number,
     b: number,
     v2: number[],
     v3: number[]
-  ) => void
+  ): void
   /**
    * Cuenta la cantidad de números si capicúas en el array.
    * @returns {number} - Número de elementos no capicúas en el array.
    */
-  contarCapicuas: () => number
+  contarCapicuas(): number
   /**
    * Cuenta la cantidad de números no capicúas en el array.
    * @returns {number} - Número de elementos no capicúas en el array.
    */
-  contarNoCapicuas: () => number
+  contarNoCapicuas(): number
   /**
    * Segmenta los capicuas y los no capicuas
    */
-  segmentarCapicuaYNoCapicua: () => void
+  segmentarCapicuaYNoCapicua(): void
   /**
    * Intercala primos y no primos de un segmento.
    * @param {number} a primer Intervalo
    * @param {number} b segundo Intervalo
    */
-  intercalarPrimoYNoPrimoDeUnSegmento: (a: number, b: number) => void
+  intercalarPrimoYNoPrimoDeUnSegmento(a: number, b: number): void
 }
-
-// Implementación del método 'cargar' para el prototipo de Array
-// Implementa la función cargar en el prototipo de Array
-(Array.prototype as any).cargar = function (
+Array.prototype.cargar = function (
   numeroDeElementos: number,
   valorInicial: number,
   valorFinal: number
 ): void {
-  this.length = numeroDeElementos;
+  this.length = numeroDeElementos
   for (let i = 0; i < this.length; i++) {
     const numeroAleatorio =
-      Math.floor(Math.random() * (valorFinal - valorInicial + 1)) + valorInicial;
-    this[i] = numeroAleatorio;
+      Math.floor(Math.random() * (valorFinal - valorInicial + 1)) + valorInicial
+    this[i] = numeroAleatorio
   }
-};
+}
+Array.prototype.cargarElementoXElemento = function (numero: number): void {
+  this[this.length] = numero
+  this.length++
+}
 
-(Array.prototype as any).cargarElementoXElemento = function (
-  this: number[],
-  numero: number
-): void {
-  this[this.length] = numero;
-  this.length++;
-};
-
-(Array.prototype as any).descargar = function descargar(this: number[]): string {
+Array.prototype.descargar = function descargar(this: number[]): string {
   return '{' + this.toString() + '}'
 }
 
-(Array.prototype as any).cargarSerieAritmetica = function (
-  this: number[],
+Array.prototype.cargarSerieAritmetica = function (
   numeroDeElementos: number,
   valorInicial: number,
   razon: number
 ): void {
-  this.length = numeroDeElementos;
+  this.length = numeroDeElementos
   for (let i = 0; i < this.length; i++) {
-    this[i] = valorInicial + i * razon;
+    this[i] = valorInicial + i * razon
   }
-};
+}
 
-(Array.prototype as any).cargarSerieFibonacci = function cargarSerieFibonacci(
+Array.prototype.cargarSerieFibonacci = function cargarSerieFibonacci(
   numeroDeElementos
 ) {
   this.length = numeroDeElementos
@@ -383,7 +441,7 @@ interface Array<T> {
   }
 }
 
-(Array.prototype as any).seleccionarPorPosicion = function seleccionarPorPosicion(
+Array.prototype.seleccionarPorPosicion = function seleccionarPorPosicion(
   intervalo,
   v2
 ) {
@@ -393,7 +451,7 @@ interface Array<T> {
   }
 }
 
-(Array.prototype as any).seleccionarPrimos = function seleccionarPrimos(v2) {
+Array.prototype.seleccionarPrimos = function seleccionarPrimos(v2) {
   const n1 = new NEnt()
   for (let i = 0; i < this.length; i++) {
     n1.cargar(this[i])
@@ -404,7 +462,7 @@ interface Array<T> {
   }
 }
 
-(Array.prototype as any).seleccionarNoPrimos = function seleccionarNoPrimos(v3) {
+Array.prototype.seleccionarNoPrimos = function seleccionarNoPrimos(v3) {
   const n1 = new NEnt()
   for (let i = 0; i < this.length; i++) {
     n1.cargar(this[i])
@@ -414,7 +472,7 @@ interface Array<T> {
   }
 }
 
-(Array.prototype as any).seleccionarBuenos = function seleccionarBuenos(v2) {
+Array.prototype.seleccionarBuenos = function seleccionarBuenos(v2) {
   const media = this.promedio()
   const estandar = this.desviacionEstandar()
   const rango = media + estandar
@@ -426,7 +484,7 @@ interface Array<T> {
   }
 }
 
-(Array.prototype as any).maximo = function maximo() {
+Array.prototype.maximo = function maximo() {
   let dr = this[0]
   for (let i = 1; i < this.length; i++) {
     if (this[i] > dr) {
@@ -436,7 +494,7 @@ interface Array<T> {
   return dr
 }
 
-(Array.prototype as any).frecuencia = function frecuencia(elemento) {
+Array.prototype.frecuencia = function frecuencia(elemento) {
   let c = 0
   for (let i = this.length - 1; i >= 0; i--) {
     if (this[i] === elemento) {
@@ -446,12 +504,12 @@ interface Array<T> {
   return c
 }
 
-(Array.prototype as any).maximoYfrecuencia = function maximoYfrecuencia(objetoMaxYFrec) {
+Array.prototype.maximoYfrecuencia = function maximoYfrecuencia(objetoMaxYFrec) {
   objetoMaxYFrec.maximo = this.maximo()
   objetoMaxYFrec.frecuencia = this.frecuencia(objetoMaxYFrec.maximo)
 }
 
-(Array.prototype as any).promedio = function promedio() {
+Array.prototype.promedio = function promedio() {
   let suma = 0
   for (let i = 0; i < this.length; i++) {
     suma += this[i]
@@ -459,7 +517,7 @@ interface Array<T> {
   return suma / this.length
 }
 
-(Array.prototype as any).desviacionMedia = function desviacionMedia() {
+Array.prototype.desviacionMedia = function desviacionMedia() {
   const media = this.promedio()
   let suma = 0
   for (let i = 0; i < this.length; i++) {
@@ -468,7 +526,7 @@ interface Array<T> {
   return suma / this.length
 }
 
-(Array.prototype as any).desviacionEstandar = function desviacionEstandar() {
+Array.prototype.desviacionEstandar = function desviacionEstandar() {
   const media = this.promedio()
   let suma = 0
   for (let i = 0; i < this.length; i++) {
@@ -477,7 +535,7 @@ interface Array<T> {
   return Math.sqrt(suma / this.length)
 }
 
-(Array.prototype as any).busquedaBinaria = function busquedaBinaria(valorBuscado) {
+Array.prototype.busquedaBinaria = function busquedaBinaria(valorBuscado) {
   this.ordenamientoBurbujaAscendente()
   let izquierda = 0
   let derecha = this.length - 1
@@ -498,7 +556,7 @@ interface Array<T> {
   return false
 }
 
-(Array.prototype as any).busquedaSecuencial = function (valorBuscado) {
+Array.prototype.busquedaSecuencial = function (valorBuscado) {
   for (let i = 0; i < this.length; i++) {
     if (valorBuscado === this[i]) {
       return true
@@ -508,32 +566,32 @@ interface Array<T> {
   return false
 }
 
-(Array.prototype as any).retornarDimension = function () {
+Array.prototype.retornarDimension = function () {
   return this.length
 }
 
-(Array.prototype as any).retornarElemento = function (elemento) {
+Array.prototype.retornarElemento = function (elemento) {
   return this[elemento]
 }
 
-(Array.prototype as any).retornarArray = function () {
+Array.prototype.retornarArray = function () {
   return this
 }
 
-(Array.prototype as any).eliminarDuplicados = function () {
+Array.prototype.eliminarDuplicados = function () {
   const arraySinDuplicados = Array.from(new Set(this))
 
   this.length = 0
   this.push(...arraySinDuplicados)
 }
 
-(Array.prototype as any).intercambiar = function (a, b) {
+Array.prototype.intercambiar = function (a, b) {
   const temp = this[a]
   this[a] = this[b]
   this[b] = temp
 }
 
-(Array.prototype as any).ordenamientoBurbujaAscendente =
+Array.prototype.ordenamientoBurbujaAscendente =
   function ordenamientoBurbujaAscendente() {
     for (let i = 0; i < this.length - 1; i++) {
       for (let j = 0; j < this.length - i - 1; j++) {
@@ -544,7 +602,7 @@ interface Array<T> {
     }
   }
 
-(Array.prototype as any).ordenamientoBurbujaDescendente =
+Array.prototype.ordenamientoBurbujaDescendente =
   function ordenamientoBurbujaDescendente() {
     for (let i = 0; i < this.length - 1; i++) {
       for (let j = 0; j < this.length - i - 1; j++) {
@@ -555,7 +613,7 @@ interface Array<T> {
     }
   }
 
-(Array.prototype as any).ordenamientoPorSeleccionAscendente = function () {
+Array.prototype.ordenamientoPorSeleccionAscendente = function () {
   for (let i = 0; i < this.length; i++) {
     let indiceMinimo = i
     for (let j = i + 1; j < this.length; j++) {
@@ -568,7 +626,7 @@ interface Array<T> {
     this[indiceMinimo] = temp
   }
 }
-(Array.prototype as any).ordenamientoBurbujaDescendente = function () {
+Array.prototype.ordenamientoBurbujaDescendente = function () {
   for (let i = 0; i < this.length; i++) {
     let indicemaximo = i
     for (let j = i + 1; j < this.length; j++) {
@@ -581,7 +639,7 @@ interface Array<T> {
     this[indicemaximo] = temp
   }
 }
-(Array.prototype as any).ordenamientoBurbujaAscendente = function () {
+Array.prototype.ordenamientoBurbujaAscendente = function () {
   let intercambio
   do {
     intercambio = false
@@ -595,7 +653,7 @@ interface Array<T> {
     }
   } while (intercambio)
 }
-(Array.prototype as any).ordenamientoBurbujaDescendente = function () {
+Array.prototype.ordenamientoBurbujaDescendente = function () {
   let intercambio
   do {
     intercambio = false
@@ -609,7 +667,7 @@ interface Array<T> {
     }
   } while (intercambio)
 }
-(Array.prototype as any).pertenencia = function (numero) {
+Array.prototype.pertenencia = function (numero) {
   let pertenece = false
   for (let i = 0; i < this.length; i++) {
     if (this[i] === numero) {
@@ -619,7 +677,7 @@ interface Array<T> {
   }
   return pertenece
 }
-(Array.prototype as any).interseccionDeConjuntos = function (v1, v2) {
+Array.prototype.interseccionDeConjuntos = function (v1, v2) {
   const longitudV1 = v1.retornarDimension()
   const longitudV2 = v2.retornarDimension()
   const array1 = v1.retornarArray()
@@ -635,7 +693,7 @@ interface Array<T> {
   }
   this.eliminarDuplicados()
 }
-(Array.prototype as any).unionDeConjuntos = function (v1, v2) {
+Array.prototype.unionDeConjuntos = function (v1, v2) {
   const longitudV1 = v1.retornarDimension()
   const longitudV2 = v2.retornarDimension()
   const array1 = v1.retornarArray()
@@ -651,7 +709,7 @@ interface Array<T> {
 
   this.eliminarDuplicados()
 }
-(Array.prototype as any).diferenciaDeConjuntosAB = function (v1, v2) {
+Array.prototype.diferenciaDeConjuntosAB = function (v1, v2) {
   const longitudV1 = v1.retornarDimension()
   const array1 = v1.retornarArray()
 
@@ -663,7 +721,7 @@ interface Array<T> {
 
   this.eliminarDuplicados()
 }
-(Array.prototype as any).diferenciaDeConjuntosBA = function (v1, v2) {
+Array.prototype.diferenciaDeConjuntosBA = function (v1, v2) {
   const longitudV2 = v2.retornarDimension()
   const array2 = v2.retornarArray()
 
@@ -675,7 +733,7 @@ interface Array<T> {
 
   this.eliminarDuplicados()
 }
-(Array.prototype as any).segmentarParYNoPar = function () {
+Array.prototype.segmentarParYNoPar = function () {
   const n1 = new NEnt()
   const n2 = new NEnt()
   for (let p = 0; p < this.length - 1; p++) {
@@ -692,7 +750,7 @@ interface Array<T> {
     }
   }
 }
-(Array.prototype as any).segmentarPrimoYNoPrimo = function () {
+Array.prototype.segmentarPrimoYNoPrimo = function () {
   const n1 = new NEnt()
   const n2 = new NEnt()
   for (let p = 0; p < this.length - 1; p++) {
@@ -709,7 +767,7 @@ interface Array<T> {
     }
   }
 }
-(Array.prototype as any).intercalarParYNoPar = function () {
+Array.prototype.intercalarParYNoPar = function () {
   let b = true
   const n1 = new NEnt()
   const n2 = new NEnt()
@@ -745,7 +803,7 @@ interface Array<T> {
     b = !b
   }
 }
-(Array.prototype as any).intercalarPrimoYNoPrimo = function () {
+Array.prototype.intercalarPrimoYNoPrimo = function () {
   let b = true
   const n1 = new NEnt()
   const n2 = new NEnt()
@@ -784,7 +842,7 @@ interface Array<T> {
     b = !b
   }
 }
-(Array.prototype as any).invertir = function () {
+Array.prototype.invertir = function () {
   let inicio = 0
   let fin = this.length - 1
   while (inicio < fin) {
@@ -793,7 +851,7 @@ interface Array<T> {
     fin--
   }
 }
-(Array.prototype as any).contarSubmultiplos = function () {
+Array.prototype.contarSubmultiplos = function () {
   let contador = 0
 
   for (let i = 0; i < this.length; i++) {
@@ -803,7 +861,7 @@ interface Array<T> {
   }
   return contador
 }
-(Array.prototype as any).buscarElementoMayor = function (indice) {
+Array.prototype.buscarElementoMayor = function (indice) {
   let mayor = 0
   for (let i = 0; i < this.length; i++) {
     if (i % indice === 0 && mayor < this[i]) {
@@ -812,7 +870,7 @@ interface Array<T> {
   }
   return mayor
 }
-(Array.prototype as any).buscarMedia = function (indice) {
+Array.prototype.buscarMedia = function (indice) {
   let suma = 0
   let contador = 0
   for (let i = 0; i < this.length; i++) {
@@ -823,7 +881,7 @@ interface Array<T> {
   }
   return suma / contador
 }
-(Array.prototype as any).verificarElementosIguales = function () {
+Array.prototype.verificarElementosIguales = function () {
   const inicial = this[0]
   for (let i = 0; i < this.length; i++) {
     if (inicial !== this[i]) {
@@ -832,7 +890,7 @@ interface Array<T> {
   }
   return true
 }
-(Array.prototype as any).verificarSegmentoOrdenado = function (a, b) {
+Array.prototype.verificarSegmentoOrdenado = function (a, b) {
   for (let i = a; i < b; i++) {
     if (this[i] > this[i + 1]) {
       return false
@@ -840,7 +898,7 @@ interface Array<T> {
   }
   return true
 }
-(Array.prototype as any).insertarArrayPorPosicion = function (v1, v2, posicion) {
+Array.prototype.insertarArrayPorPosicion = function (v1, v2, posicion) {
   const n1 = v1.retornarDimension()
   const n2 = v2.retornarDimension()
   const vector1 = v1.retornarArray()
@@ -858,7 +916,7 @@ interface Array<T> {
     this.cargarElementoXElemento(vector1[i])
   }
 }
-(Array.prototype as any).eliminarElementosDelArrayIndicandoLasPosiciones = function (
+Array.prototype.eliminarElementosDelArrayIndicandoLasPosiciones = function (
   a,
   b
 ) {
@@ -873,7 +931,7 @@ interface Array<T> {
   this.length = 0
   this.push(...copia)
 }
-(Array.prototype as any).duplicarElementos = function () {
+Array.prototype.duplicarElementos = function () {
   const copia = new Array()
 
   for (let i = 0; i < this.length; i++) {
@@ -886,13 +944,13 @@ interface Array<T> {
   this.push(...copia)
   this.length = copia.length
 }
-(Array.prototype as any).concatenar = function (v1) {
+Array.prototype.concatenar = function (v1) {
   const n1 = v1.length
   for (let i = 0; i < n1; i++) {
     this.cargarElementoXElemento(v1[i])
   }
 }
-(Array.prototype as any).ordenarElementosDeUnSegmento = function (a, b) {
+Array.prototype.ordenarElementosDeUnSegmento = function (a, b) {
   const array1 = new Array()
   const array2 = new Array()
   const array3 = new Array()
@@ -918,7 +976,7 @@ interface Array<T> {
   this.push(...array1)
   this.length = array1.length
 }
-(Array.prototype as any).buscarElementoMenosRepetido = function () {
+Array.prototype.buscarElementoMenosRepetido = function () {
   let leastFrequentNumber = 0
   let minCount = this.length + 1
 
@@ -947,7 +1005,7 @@ interface Array<T> {
 
   return leastFrequentNumber
 }
-(Array.prototype as any).encontrarElementoMenosRepetidoEntreUnSegmento = function (
+Array.prototype.encontrarElementoMenosRepetidoEntreUnSegmento = function (
   a,
   b
 ) {
@@ -961,12 +1019,12 @@ interface Array<T> {
 
   return menosRepetido
 }
-(Array.prototype as any).cargarFrecuencia = function (v3, v2) {
+Array.prototype.cargarFrecuencia = function (v3, v2) {
   for (let i = 0; i < v2.length; i++) {
     v3.cargarElementoXElemento(this.frecuencia(v2[i]))
   }
 }
-(Array.prototype as any).encontrarLaFrecuenciaDeDistribucionEntreUnSegmento = function (
+Array.prototype.encontrarLaFrecuenciaDeDistribucionEntreUnSegmento = function (
   a,
   b,
   v2,
@@ -988,7 +1046,7 @@ interface Array<T> {
 
   v1.cargarFrecuencia(v3, v2)
 }
-(Array.prototype as any).contarCapicuas = function () {
+Array.prototype.contarCapicuas = function () {
   let contarCapicuas = 0
   const n1 = new NEnt()
 
@@ -1002,7 +1060,7 @@ interface Array<T> {
   }
   return contarCapicuas
 }
-(Array.prototype as any).contarNoCapicuas = function () {
+Array.prototype.contarNoCapicuas = function () {
   let contarNoCapicuas = 0
   const n1 = new NEnt()
 
@@ -1016,7 +1074,7 @@ interface Array<T> {
   }
   return contarNoCapicuas
 }
-(Array.prototype as any).segmentarCapicuaYNoCapicua = function () {
+Array.prototype.segmentarCapicuaYNoCapicua = function () {
   const n1 = new NEnt()
   const n2 = new NEnt()
   for (let p = 0; p < this.length - 1; p++) {
@@ -1033,7 +1091,7 @@ interface Array<T> {
     }
   }
 }
-(Array.prototype as any).intercalarPrimoYNoPrimoDeUnSegmento = function (a, b) {
+Array.prototype.intercalarPrimoYNoPrimoDeUnSegmento = function (a, b) {
   const array1 = new Array()
   const array2 = new Array()
   const array3 = new Array()

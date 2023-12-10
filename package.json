@@ -1,10 +1,9 @@
 {
   "name": "array-methods-utils",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Libreria util para metodos de arrays",
-  "main": "dist/index.js",
+  "main": "./index.js",
   "type": "module",
-  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +15,6 @@
   "author": "sebastian-cespedes-rodas",
   "license": "ISC",
   "devDependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }

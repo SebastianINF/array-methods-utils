@@ -1,3 +1,5 @@
+#ignorar el node_modules
 node_modules
 
+#ignorar archivo tsconfig.json
 tsconfig.json
