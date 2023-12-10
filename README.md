@@ -67,7 +67,7 @@ const array1 = [1, 2, 3, 4];
 const array2 = [3, 4, 5, 6];
 const resultado = [];
 resultado.interseccionDeConjuntos(array1, array2);
-console.log(resultado.retornarVector()); // Resultado: [3, 4]
+console.log(resultado.retornarArray()); // Resultado: [3, 4]
 ```
 
 ## Contribuciones

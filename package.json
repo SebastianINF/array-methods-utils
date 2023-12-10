@@ -1,11 +1,16 @@
 {
   "name": "array-methods-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Libreria util para metodos de arrays",
-  "type": "commonjs",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianINF/array-methods-utils.git"
   },
   "keywords": [],
   "author": "sebastian-cespedes-rodas",
